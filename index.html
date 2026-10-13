@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOLCANO LOVERS WORKSPACE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0d0907;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Animated Magma Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .volcano-card {
+            background: rgba(26, 18, 15, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 87, 34, 0.25);
+            box-shadow: 0 10px 30px -10px rgba(255, 69, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .volcano-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 87, 34, 0.8);
+            box-shadow: 0 20px 40px -10px rgba(255, 69, 0, 0.6);
+        }
+
+        .btn-magma {
+            background: linear-gradient(135deg, #ff4500 0%, #ff8c00 50%, #d50000 100%);
+            background-size: 200% 200%;
+            animation: magmaGradient 4s ease infinite;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes magmaGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-magma:hover {
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.8);
+            transform: scale(1.03);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 15px rgba(255, 69, 0, 0.7), 0 0 30px rgba(255, 140, 0, 0.4);
+        }
+
+        /* Ember Particles Effect */
+        .ember {
+            position: absolute;
+            bottom: -10px;
+            background: #ff5722;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: rise 5s infinite linear;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-orange-600 selection:text-white">
+
+    <!-- Background Animated Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Embers Container -->
+    <div id="embers-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Header Navbar -->
+    <header class="relative z-10 w-full px-6 py-6 border-b border-orange-900/40 bg-black/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-orange-600/40">
+                    <i class="fa-solid font-bold fa-volcano text-xl"></i>
+                </div>
+                <span class="font-orbitron font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-amber-300">
+                    VOLCANO HUB
+                </span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-400 border border-orange-700/50">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-ping mr-2"></span> Workspace Active
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="relative z-10 flex-grow flex items-center justify-center px-4 py-12">
+        <div class="max-w-5xl w-full mx-auto text-center space-y-12">
+            
+            <!-- Hero Title -->
+            <div class="space-y-4">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-red-950/60 border border-red-800/40 text-red-400 text-sm font-semibold tracking-wide uppercase">
+                    🔥 Platform Kreatif Bertema Gunung Berapi
+                </div>
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-orbitron font-black text-white tracking-tight leading-tight glow-text">
+                    VOLCANO LOVERS <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-400 to-red-600">
+                        WORKSPACE
+                    </span>
+                </h1>
+                <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg leading-relaxed">
+                    Selamat datang di pusat kreasi pecinta gunung berapi! Pilih studio kreativitas Anda di bawah ini untuk mulai meracik musik atau memproduksi cerita video berbasis AI.
+                </p>
+            </div>
+
+            <!-- Workspace Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-2 sm:px-6">
+                
+                <!-- FEATURE 1 CARD: BUAT LAGU GUNUNG BERAPI -->
+                <div class="volcano-card rounded-3xl p-8 text-left flex flex-col justify-between relative overflow-hidden group">
+                    <!-- Accent Glow Inside Card -->
+                    <div class="absolute -right-12 -top-12 w-40 h-40 bg-orange-600/20 rounded-full blur-3xl group-hover:bg-orange-500/30 transition-all duration-500"></div>
+                    
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-red-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-orange-600/30 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <h2 class="font-orbitron text-2xl font-bold text-white mb-3">
+                            Studio Lagu AI
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Ciptakan harmoni dan musik membara bertema eksplorasi gunung berapi secara otomatis menggunakan generator lagu khusus.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="openLink('https://msrusdi6767-pixel.github.io/BUATLAGUGUNUNGBERAPIMUDISINI/')" class="btn-magma w-full py-4 px-6 rounded-2xl text-white font-extrabold text-sm sm:text-base tracking-wider uppercase flex items-center justify-center space-x-3 shadow-lg cursor-pointer">
+                            <span>1. BUAT LAGU GUNUNG BERAPI</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        
+                        <!-- Mini Preview Link Area -->
+                        <div class="p-3 rounded-xl bg-black/40 border border-orange-950 text-xs text-gray-500 truncate flex items-center justify-between">
+                            <span class="truncate">https://msrusdi6767-pixel.github.io/BUATLAGUGUNUNGBERAPIMUDISINI/</span>
+                            <button onclick="copyToClipboard('https://msrusdi6767-pixel.github.io/BUATLAGUGUNUNGBERAPIMUDISINI/')" class="ml-2 text-orange-400 hover:text-orange-300 transition-colors" title="Salin Link">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEATURE 2 CARD: BUAT VIDEO AI GUNUNG BERAPI -->
+                <div class="volcano-card rounded-3xl p-8 text-left flex flex-col justify-between relative overflow-hidden group">
+                    <!-- Accent Glow Inside Card -->
+                    <div class="absolute -right-12 -top-12 w-40 h-40 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-500/30 transition-all duration-500"></div>
+
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-red-600/30 mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <h2 class="font-orbitron text-2xl font-bold text-white mb-3">
+                            Studio Video AI
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Hasilkan video visual menakjubkan dan cerita magmatis seputar erupsi & pemandangan gunung berapi dengan AI.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="openLink('https://msrusdi6767-pixel.github.io/BUATVIDEOCERITAGUNUNGAPIMUDISINI-/')" class="btn-magma w-full py-4 px-6 rounded-2xl text-white font-extrabold text-sm sm:text-base tracking-wider uppercase flex items-center justify-center space-x-3 shadow-lg cursor-pointer">
+                            <span>2. BUAT VIDEO AI GUNUNG BERAPI</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        
+                        <!-- Mini Preview Link Area -->
+                        <div class="p-3 rounded-xl bg-black/40 border border-orange-950 text-xs text-gray-500 truncate flex items-center justify-between">
+                            <span class="truncate">https://msrusdi6767-pixel.github.io/BUATVIDEOCERITAGUNUNGAPIMUDISINI-/</span>
+                            <button onclick="copyToClipboard('https://msrusdi6767-pixel.github.io/BUATVIDEOCERITAGUNUNGAPIMUDISINI-/')" class="ml-2 text-orange-400 hover:text-orange-300 transition-colors" title="Salin Link">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Volcano Facts / Sound Panel -->
+            <div class="volcano-card rounded-2xl p-6 text-center max-w-xl mx-auto border border-orange-900/50">
+                <div class="flex items-center justify-center space-x-3 text-orange-400 font-semibold mb-2">
+                    <i class="fa-solid fa-volcano"></i>
+                    <span>Volcanic Ambient Effects</span>
+                </div>
+                <p class="text-xs text-gray-400 mb-4">Tekan tombol di bawah untuk mendengarkan gemuruh lava latar belakang.</p>
+                <button id="audio-toggle" onclick="toggleVolcanoSound()" class="px-5 py-2.5 rounded-xl bg-orange-950/80 hover:bg-orange-900 text-orange-300 text-xs font-bold border border-orange-700/50 transition-all flex items-center justify-center space-x-2 mx-auto">
+                    <i class="fa-solid fa-volume-xmark" id="audio-icon"></i>
+                    <span id="audio-status">Putar Suara Magma</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal Redirection Dialog -->
+    <div id="redirect-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-stone-900 border border-orange-600/50 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-6 relative overflow-hidden">
+            <div class="w-16 h-16 rounded-full bg-orange-600/20 border border-orange-500/40 text-orange-500 flex items-center justify-center text-3xl mx-auto">
+                <i class="fa-solid fa-fire-flame-curved animate-pulse"></i>
+            </div>
+            <div>
+                <h3 class="font-orbitron text-xl font-bold text-white mb-2">Membuka Workspace External</h3>
+                <p class="text-sm text-gray-400">Anda sedang dialihkan ke tautan pembuatan konten gunung berapi berikut:</p>
+                <p id="target-url" class="mt-3 p-3 bg-black/60 rounded-xl text-orange-400 text-xs break-all font-mono border border-orange-900/50"></p>
+            </div>
+            <div class="flex space-x-3">
+                <button onclick="closeModal()" class="w-1/2 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-gray-300 font-bold text-sm transition-colors">
+                    Batal
+                </button>
+                <a id="modal-proceed-btn" href="#" target="_blank" onclick="closeModal()" class="w-1/2 py-3 rounded-xl btn-magma text-white font-bold text-sm shadow-lg text-center flex items-center justify-center">
+                    Buka Lanjut <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-stone-900 border border-orange-500/60 text-white px-5 py-3 rounded-2xl shadow-2xl opacity-0 transform translate-y-8 transition-all duration-300 flex items-center space-x-3 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-orange-500 text-lg"></i>
+        <span id="toast-message" class="text-xs sm:text-sm font-medium">Tautan berhasil disalin!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 w-full py-6 border-t border-orange-950/50 text-center text-xs text-gray-600 bg-black/30">
+        <p>© 2026 VOLCANO LOVERS WORKSPACE. Dedicated to Volcanology & Creative Exploration.</p>
+    </footer>
+
+    <script>
+        // --- Canvas Magma Particles Animation ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class MagmaParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.color = Math.random() > 0.4 ? '#ff4500' : (Math.random() > 0.5 ? '#ff8c00' : '#d50000');
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.002;
+
+                if (this.y < -10 || this.opacity <= 0) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        const particles = Array.from({ length: 60 }, () => new MagmaParticle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw gradient background overlay
+            const grad = ctx.createLinearGradient(0, height, 0, 0);
+            grad.addColorStop(0, 'rgba(40, 10, 0, 0.4)');
+            grad.addColorStop(1, 'rgba(10, 5, 5, 0.9)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // --- Link Handling & Modal Functions ---
+        function openLink(url) {
+            document.getElementById('target-url').innerText = url;
+            document.getElementById('modal-proceed-btn').href = url;
+            const modal = document.getElementById('redirect-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('redirect-modal').classList.add('hidden');
+        }
+
+        // --- Copy to Clipboard Function ---
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Tautan berhasil disalin!");
+            } catch (err) {
+                showToast("Gagal menyalin tautan.");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // --- Synthetic Volcanic Rumble Audio Synthesizer (Web Audio API) ---
+        let audioCtx = null;
+        let noiseNode = null;
+        let gainNode = null;
+        let isPlaying = false;
+
+        function toggleVolcanoSound() {
+            const statusText = document.getElementById('audio-status');
+            const icon = document.getElementById('audio-icon');
+
+            if (!isPlaying) {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                // Create low frequency rumble sound using noise buffer & lowpass filter
+                const bufferSize = audioCtx.sampleRate * 2;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const output = buffer.getChannelData(0);
+                
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                noiseNode = audioCtx.createBufferSource();
+                noiseNode.buffer = buffer;
+                noiseNode.loop = true;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(120, audioCtx.currentTime); // Deep rumble
+
+                gainNode = audioCtx.createGain();
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+
+                noiseNode.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                noiseNode.start();
+                isPlaying = true;
+                statusText.innerText = "Hentikan Suara Magma";
+                icon.className = "fa-solid fa-volume-high text-orange-400";
+            } else {
+                if (gainNode) {
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+                    setTimeout(() => {
+                        if (noiseNode) noiseNode.stop();
+                        isPlaying = false;
+                        statusText.innerText = "Putar Suara Magma";
+                        icon.className = "fa-solid fa-volume-xmark";
+                    }, 500);
+                }
+            }
+        }
+
+        // Start Canvas loop on window load
+        window.onload = function() {
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
